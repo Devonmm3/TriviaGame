@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trivia Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="assets/javascript/app.js"></script>
+</head>
+
+<body>
+    <!-- //div id needed for the whole body: will contain the background, the start button, and then the questions and the timer, and finally the reselts and a "try again button" -->
+    <div id="main-wrap">
+        <!-- header contains the title of the game, in it's own header, that will remain displayed throughout the game.-->
+        <h1>Harry Potter Trivia!</h1>
+
+        <!--the main id will contain all of the main id's for the game (the timer and the questions-->
+        <div id="main">
+            <!--the quiz id will contain the questions, the answer options and possible be the ID for the displayed answers.-->
+            <div id="quiz">
+                <!--initally on the front page the start button will be the only thing displayed in the quiz area-->
+                <button id="start">Start!</button>
+
+                <!--the timeLeft id will contain the countdown clock, which counts down from 60 so the user has 1 minute to answer the questios-->
+                <div id="timeLeft">Time Remaining: 60 seconds</div>
+                <!--div id content will contain the questions and the answer options-->
+                <div id="content"></div>
+                <!--div responses will contain the correct and incorrect answers after the time runs out-->
+                <div id="responses"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
