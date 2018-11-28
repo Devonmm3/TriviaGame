@@ -1,4 +1,4 @@
-$(document).ready(fuction) {
+$(document).ready(function () {
     //need a variable for the timer, that counts down from 60 seconds.
     var answerTimer = 60000;
     var quizArea = $("#quiz");
@@ -6,6 +6,10 @@ $(document).ready(fuction) {
     var correctAnswer = 0;
     var incorrectAnswer = 0;
     var questionsAnswered = 0;
+    var div = $("<div>");
+    var qDiv = $("<div>");
+    var aDiv = $("<div>");
+    var ul = $("<ul>");
 
 
 
@@ -55,33 +59,81 @@ $(document).ready(fuction) {
         }
 
     ]
-};
 
-//user clicks start button, the questions are diplayed and the timer begins counting down.
-function startGame() {
-    $("#start").on("click", function () {
-        console.log(rightAnswer);
-    })
-}
 
-function runTimer() {
-    increment = setInterval(decrement, 1000)
-}
+    //user clicks start button, the questions are diplayed and the timer begins counting down.
+    function startGame() {
+        console.log(questionsAndAnswers);
 
-function decrement() {
-    timeLeft--;
-    $("#timeLeft").html("Time Remaining:" + timeLeft + " Seconds");
-    if (timeLeft === 0) {
-        stopTimer();
-        answerSelected.length = 0;
-        //need to hold user answers and record them
-        var selectedGuess = ("#responses")
+        // $("#content").text(questionsAndAnswers)
+        for (var i = 0; i < questionsAndAnswers.length; i++) {
+            var div = $("<div>");
+            var qDiv = $("<div>");
+            var aDiv = $("<div>");
+            var ul = $("<ul>");
 
+
+
+            //$input = $("<input", {
+            // "class": "form-check-input",
+            //  "type": "radio",
+            // "name": question-${index}- choice,
+            // "value": c
+            // }),
+
+
+            //questions
+            qDiv.text(questionsAndAnswers[i].question);
+
+
+            //answers
+            for (var j = 0; j < questionsAndAnswers[i].answerChoices.length; j++) {
+                var li = $("<li>");
+                li.text(questionsAndAnswers[i].answerChoices[j]);
+                ul.append(li);
+            }
+            aDiv.append(ul);
+            div.append(qDiv, aDiv);
+            debugger
+            $("#content").append(div);
+        }
+        // runTimer();
     }
-    //function to display the given responses at the end of the game
-}
+
+    $("#start").on("click", function () {
+        console.log("Go")
+        startGame()
+
+    });
+
+
+
+
+
+    function runTimer() {
+        increment = setInterval(decrement, 1000)
+    }
+
+    function decrement() {
+        timeLeft--;
+        $("#timeLeft").html("Time Remaining:" + timeLeft + " Seconds");
+        if (timeLeft === 0) {
+            console.log("Time is up")
+            stopTimer();
+            answerSelected.length = 0;
+            //need to hold user answers and record them
+            var answerSelected = $("#responses input:radio[name=optionsRadios]:checked").val();
+            userAns.push(answerSelected);
+            console.log(answerSelected);
+
+
+
+            //function to display the given responses at the end of the game
+        }
+    }
+});
 //user is able to choose one of the 4 answers and only one can be selected.
-function
+// function
 //when the timer hits 0, the results are displayed.  The results are correct answers, incorrect answers, and the number of questions answered. 
 //Need a function to call the results to the "quiz" div in the html
 //the timer resets and the game restarts.
