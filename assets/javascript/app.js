@@ -82,7 +82,8 @@ $(document).ready(function() {
   var timeRemaing = 10;
 
   function startTimer() {
-    increment = interval((decrement = 1000));
+    clearInterval(intervalId);
+    intervalId = setInterval((decrement = 100));
   }
 
   function timerDecrement() {
@@ -104,7 +105,7 @@ $(document).ready(function() {
     $("#timeLeft").html("Results");
   }
   function stopTimer() {
-    clearTimer(increment);
+    clearInterval(intervalId);
   }
   function timerReset() {
     timeRemaing = 10;
@@ -158,8 +159,6 @@ $(document).ready(function() {
     pickAnswer();
   }
 
-  //function for resetting the game
-
   function resetGame() {
     correctAnswer = 0;
     incorrectAnswer = 0;
@@ -169,7 +168,6 @@ $(document).ready(function() {
     timerReset();
   }
 
-  //function for the results page
   function showResultsPage() {
     clearQuestion();
     $("#content").append(
@@ -186,15 +184,13 @@ $(document).ready(function() {
         "Restart" +
         "</a>"
     );
-    $("#restart").on("click", function(doReset) {
-      doReset.undoDefault();
+    $("#restart").on("click", function(resetGame) {
+      resetGame.undoDefault();
       resetGame();
       clearQuestion();
       showStartPage();
     });
   }
-
-  //need to show the current question
 
   function clearQuestion() {
     var aDiv = $("#responses");
@@ -261,53 +257,3 @@ $(document).ready(function() {
 
   showStartPage();
 });
-
-// function showQuestion() {
-//   clearQuestion();
-//   timerReset();
-//   $(".questionY").html(
-//     questionsAndAnswers[questionCounter].questionAndAnswer
-//   );
-//   makeRadios();
-//   $("#submit").append(
-//     "<button type='submit' class='btn btn-default' id='submit'>" +
-//       "Submit Answer" +
-//       "</button>"
-//   );
-//   startTimer();
-//   pickAnswer();
-// }
-
-//user clicks start button, the questions are diplayed and the timer begins counting down.
-
-// function startGame() {
-//   console.log(questionsAndAnswers);
-
-// $("#content").text(questionsAndAnswers)
-
-//   var div = $("<div>");
-//   var qDiv = $("<div>");
-//   var aDiv = $("<div>");
-//   var ul = $("<ul>");
-
-//$input = $("<input", {
-// "class": "form-check-input",
-//  "type": "radio",
-// "name": question-${index}- choice,
-// "value": c
-// }),
-
-//questions
-// qDiv.text(questionsAndAnswers[i].question);
-
-//answers
-//   for (var j = 0; j < questionsAndAnswers[i].answerChoices.length; j++) {
-//     var li = $("<li>");
-//     li.text(questionsAndAnswers[i].answerChoices[j]);
-//     ul.append(li);
-//   }
-//   aDiv.append(ul);
-//   div.append(qDiv, aDiv);
-//   debugger;
-//   $("#content").append(div);
-// }
