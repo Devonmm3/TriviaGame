@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var questionCounter = 0;
-  var TimeoutAnswer = 2000;
+  var timeoutAnswer = 2000;
   var correctAnswer = 0;
   var incorrectAnswer = 0;
   var questionsUnanswered = 0;
@@ -82,8 +82,7 @@ $(document).ready(function() {
   var timeRemaing = 10;
 
   function startTimer() {
-    clearInterval(intervalId);
-    intervalId = setInterval((decrement = 100));
+    increment = setInterval((decrement = 1000));
   }
 
   function timerDecrement() {
@@ -166,30 +165,30 @@ $(document).ready(function() {
     questionsUnanswered = 0;
     answerSelected = [];
     timerReset();
-  }
 
-  function showResultsPage() {
-    clearQuestion();
-    $("#content").append(
-      "<h5>" +
-        "Correct:" +
-        correctAnswer +
-        "</h5><br><h5>" +
-        "Incorrect:" +
-        incorrectAnswer +
-        "</h5><br><h5>" +
-        "Questions Answered:" +
-        questionsUnanswered +
-        '</h5><br><br><a href="#" class=btn btn-primary btn-sm" id="restart button">' +
-        "Restart" +
-        "</a>"
-    );
-    $("#restart").on("click", function(resetGame) {
-      resetGame.undoDefault();
-      resetGame();
+    function showResultsPage() {
       clearQuestion();
-      showStartPage();
-    });
+      $("#content").append(
+        "<h5>" +
+          "Correct:" +
+          correctAnswer +
+          "</h5><br><h5>" +
+          "Incorrect:" +
+          incorrectAnswer +
+          "</h5><br><h5>" +
+          "Questions Answered:" +
+          questionsUnanswered +
+          '</h5><br><br><a href="#" class=btn btn-primary btn-sm" id="restart button">' +
+          "Restart" +
+          "</a>"
+      );
+      $("#restart").on("click", function(resetGame) {
+        resetGame.undoDefault();
+        resetGame();
+        clearQuestion();
+        showStartPage();
+      });
+    }
   }
 
   function clearQuestion() {
@@ -211,8 +210,10 @@ $(document).ready(function() {
   function checkQuestions() {
     clearQuestion();
 
-    var answerCorrect = questionsAndAnswers[questionCounter].rightAnswer;
-    if (answerSelected[0] == questionsAndAnswers[questionCounter].rightAnswer) {
+    var answerCorrect = questionsAndAnswers[questionCounter].correctAnswer;
+    if (
+      answerSelected[0] == questionsAndAnswers[questionCounter].correctAnswer
+    ) {
       $("#content").append(
         "<h4>" + "Correct! Ten Points to Gryffindor!" + "</h4>"
       );
@@ -222,7 +223,7 @@ $(document).ready(function() {
       $("#content").append(
         "<h4>" +
           "Out of Time. The right answer is: " +
-          questionAndAnswer[questionCounter].choices[rightAnswer] +
+          questionAndAnswer[questionCounter].choices[answerCorrect] +
           "</h4>"
       );
       questionsUnanswered++;
@@ -231,7 +232,7 @@ $(document).ready(function() {
       $("#content").append(
         "<h4>" +
           "Bollocks!  Incorrect, ten points to Slytherin. The right answer is: " +
-          questionAndAnswer[questionCounter].choices[rightAnswer] +
+          questionAndAnswer[questionCounter].choices[answerCorrect] +
           "</h4>"
       );
       incorrectAnswer++;
@@ -243,9 +244,9 @@ $(document).ready(function() {
     checkQuestions();
     questionCounter++;
     if (questionCounter === questionsAndAnswers.length) {
-      createTimeout(showEnd, answerTimeout);
+      createTimeout(showEnd, timeoutAnswer);
     } else {
-      createTimeout(showQuestion, answerTimeout);
+      createTimeout(showQuestion, timeoutAnswer);
     }
   }
 
