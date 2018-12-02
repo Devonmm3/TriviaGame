@@ -7,11 +7,14 @@ body {
 }
 
 #main-wrap {
+  position: relative;
   color: brown;
+  background-color: white;
+  opacity: .75;
   text-align: center;
   margin-left: 300px;
   margin-right: 300px;
-  background-color: transparent;
+  background-color: transparent gray;
   font-family: fantasy;
   font: bold;
   font-size: 28px;
