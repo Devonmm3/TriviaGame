@@ -2,20 +2,20 @@ $(document).ready(function() {
   var correct = 0;
   var incorrect = 0;
   var missed = 0;
-
+  var questionCounter = 0;
   var userAnswer = [];
-
+  var answerTimeout = 2000;
   //Creating an array of objects with the questions, answer options, and correct answer
   var questions = [
     {
       question: "What is Mr. Filch's cats name?",
       choices: ["Fluffy", "Hedwig", "Mrs. Norris", "Scabbers"],
-      rightAnswer: 2
+      choicesAnswer: 2
     },
     {
       question: "How many children are in the Weasley Family?",
       choices: ["11", "3", "5", "7"],
-      rightAnswer: 3
+      choicesAnswer: 3
     },
     {
       question: "Who is Harry Potter's Godfather?",
@@ -25,7 +25,7 @@ $(document).ready(function() {
         "Vernan Dursely",
         "Sirius Black"
       ],
-      rightAnswer: 3
+      choicesAnswer: 3
     },
     {
       question: "Who is the current head of Gryffindor House?",
@@ -35,27 +35,27 @@ $(document).ready(function() {
         "Tom Riddle",
         "Dolores Umbridge"
       ],
-      rightAnswer: 1
+      choicesAnswer: 1
     },
     {
       question: "What position does Harry play in Quidditch?",
       choices: ["Chaser", "Seeker", "Chaser", "Beater"],
-      rightAnswer: 1
+      choicesAnswer: 1
     },
     {
       question: "What street to the Durselys live on?",
       choices: ["Ablus Avenue", "Market Street", "Privitt Dr", "Privitt Ave"],
-      rightAnswer: 2
+      choicesAnswer: 2
     },
     {
       question: "What is Harry's middle name?",
       choices: ["Ron", "Alexander", "James", "Sirius"],
-      rightAnswer: 2
+      choicesAnswer: 2
     },
     {
       question: "What is Harry's Patronus?",
       choices: ["A Crow", "A Stag", "A Shark", "A Horse"],
-      rightAnswer: 1
+      choicesAnswer: 1
     }
   ];
   //   //Function to submit answers
@@ -218,8 +218,8 @@ $(document).ready(function() {
   //   //Showing whether answer was right/wrong
   function checkQuestion() {
     clearQuestion();
-    var correctAnswer = questions[questionCounter].rightAnswer;
-    if (userAnswer[0] == questions[questionCounter].rightAnswer) {
+    var correctAnswer = questions[questionCounter].choicesAnswer;
+    if (userAnswer[0] == questions[questionCounter].choicesAnswer) {
       $("#content").append(
         "<h3>" + "You were right!! Ten points to Gryffindor!" + "</h3>"
       );
@@ -231,7 +231,7 @@ $(document).ready(function() {
           "You need a time turner!" +
           "</h3><br><br><h3>" +
           "The right answer is : " +
-          questions[questionCounter].answerChoices[correctAnswer] +
+          questions[questionCounter].choices[correctAnswer] +
           "</h3>"
       );
       missed++;
@@ -242,7 +242,7 @@ $(document).ready(function() {
           "Wrong! Detention in the Forbidden Forest for you! " +
           "</h3><br><br><h3>" +
           "The right answer was: " +
-          questions[questionCounter].answerChoices[correctAnswer] +
+          questions[questionCounter].choices[correctAnswer] +
           "</h3>"
       );
       incorrect++;
@@ -262,6 +262,12 @@ $(document).ready(function() {
       setTimeout(displayQuestion, answerTimeout);
     }
   }
+  function firstQuestion() {
+    var startContent = $("#content");
+    startContent.empty();
+    displayQuestion();
+  }
+
   displayStart();
 });
 
